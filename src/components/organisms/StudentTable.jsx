@@ -35,7 +35,7 @@ const StudentTable = ({ students, sortBy, sortOrder, onSort, onEdit, onDelete })
             onSort={onSort}
           />
           <tbody className="bg-white divide-y divide-gray-200">
-            {students.map((student, index) => (
+{students.map((student, index) => (
               <motion.tr
                 key={student.Id}
                 initial={{ opacity: 0, y: 20 }}
@@ -48,13 +48,13 @@ const StudentTable = ({ students, sortBy, sortOrder, onSort, onEdit, onDelete })
                     <div className="flex-shrink-0 h-10 w-10">
                       <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                         <span className="text-white font-medium">
-                          {student.firstName[0]}{student.lastName[0]}
+                          {student.first_name_c?.[0]}{student.last_name_c?.[0]}
                         </span>
                       </div>
                     </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
-                        {student.firstName} {student.lastName}
+                        {student.first_name_c} {student.last_name_c}
                       </div>
                       <div className="text-sm text-gray-500">
                         ID: {student.Id}
