@@ -64,15 +64,15 @@ const StudentTable = ({ students, sortBy, sortOrder, onSort, onEdit, onDelete })
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {student.email}
-                </td>
+</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {student.grade}
+                  {student.grade_c}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {format(new Date(student.enrollmentDate), "MMM dd, yyyy")}
+                  {student.enrollment_date_c ? format(new Date(student.enrollment_date_c), "MMM dd, yyyy") : "N/A"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {getStatusBadge(student.status)}
+                  {getStatusBadge(student.status_c)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div className="flex items-center space-x-2">
