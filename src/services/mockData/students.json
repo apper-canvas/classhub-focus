@@ -1,0 +1,102 @@
+[
+  {
+    "Id": 1,
+    "firstName": "Emma",
+    "lastName": "Johnson",
+    "email": "emma.johnson@email.com",
+    "grade": "10",
+    "dateOfBirth": "2008-03-15",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  },
+  {
+    "Id": 2,
+    "firstName": "Liam",
+    "lastName": "Smith",
+    "email": "liam.smith@email.com",
+    "grade": "10",
+    "dateOfBirth": "2008-07-22",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  },
+  {
+    "Id": 3,
+    "firstName": "Olivia",
+    "lastName": "Brown",
+    "email": "olivia.brown@email.com",
+    "grade": "9",
+    "dateOfBirth": "2009-01-10",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  },
+  {
+    "Id": 4,
+    "firstName": "Noah",
+    "lastName": "Davis",
+    "email": "noah.davis@email.com",
+    "grade": "11",
+    "dateOfBirth": "2007-11-08",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  },
+  {
+    "Id": 5,
+    "firstName": "Ava",
+    "lastName": "Wilson",
+    "email": "ava.wilson@email.com",
+    "grade": "9",
+    "dateOfBirth": "2009-05-14",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  },
+  {
+    "Id": 6,
+    "firstName": "William",
+    "lastName": "Miller",
+    "email": "william.miller@email.com",
+    "grade": "12",
+    "dateOfBirth": "2006-09-03",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  },
+  {
+    "Id": 7,
+    "firstName": "Sophia",
+    "lastName": "Taylor",
+    "email": "sophia.taylor@email.com",
+    "grade": "10",
+    "dateOfBirth": "2008-12-20",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  },
+  {
+    "Id": 8,
+    "firstName": "James",
+    "lastName": "Anderson",
+    "email": "james.anderson@email.com",
+    "grade": "11",
+    "dateOfBirth": "2007-04-18",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  },
+  {
+    "Id": 9,
+    "firstName": "Isabella",
+    "lastName": "Thomas",
+    "email": "isabella.thomas@email.com",
+    "grade": "9",
+    "dateOfBirth": "2009-08-27",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  },
+  {
+    "Id": 10,
+    "firstName": "Benjamin",
+    "lastName": "Jackson",
+    "email": "benjamin.jackson@email.com",
+    "grade": "12",
+    "dateOfBirth": "2006-06-12",
+    "enrollmentDate": "2023-08-15",
+    "status": "active"
+  }
+]

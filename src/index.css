@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'react-toastify/dist/ReactToastify.css';
+
+:root {
+  --toastify-color-info: #3B82F6;
+  --toastify-color-success: #10B981;
+  --toastify-color-warning: #F59E0B;
+  --toastify-color-error: #EF4444;
+  --toastify-font-family: 'Inter', sans-serif;
+}
+
+.Toastify__toast-container {
+  font-family: var(--toastify-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999;
+}
+
+.Toastify__toast {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-height: 48px;
+  padding: 12px 16px;
+}
+
+.Toastify__toast-body {
+  padding: 0;
+  margin: 0;
+}
+
+.Toastify__progress-bar {
+  height: 3px;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #1f2937;
+}
+
+.font-display {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-button {
+  background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+  transition: all 0.3s ease;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+}
+
+.glass-effect {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hover-lift {
+  transition: all 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.grade-a {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.grade-b {
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+}
+
+.grade-c {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+}
+
+.grade-d {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+}
+
+.grade-f {
+  background: linear-gradient(135deg, #7F1D1D 0%, #991B1B 100%);
+}
+
+.table-row:hover {
+  background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-gradient {
+  background: linear-gradient(180deg, #2563EB 0%, #7C3AED 100%);
+}
+
+.card-premium {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-present {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.attendance-absent {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+}
+
+.attendance-late {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+}
+
+.attendance-excused {
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+}

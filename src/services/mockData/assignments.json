@@ -1,0 +1,66 @@
+[
+  {
+    "Id": 1,
+    "classId": 1,
+    "name": "Algebra Quiz",
+    "maxScore": 100,
+    "dueDate": "2024-01-15",
+    "category": "quiz"
+  },
+  {
+    "Id": 2,
+    "classId": 1,
+    "name": "Geometry Project",
+    "maxScore": 150,
+    "dueDate": "2024-01-22",
+    "category": "project"
+  },
+  {
+    "Id": 3,
+    "classId": 2,
+    "name": "Shakespeare Essay",
+    "maxScore": 100,
+    "dueDate": "2024-01-18",
+    "category": "homework"
+  },
+  {
+    "Id": 4,
+    "classId": 2,
+    "name": "Poetry Analysis",
+    "maxScore": 75,
+    "dueDate": "2024-01-25",
+    "category": "test"
+  },
+  {
+    "Id": 5,
+    "classId": 3,
+    "name": "Cell Structure Lab",
+    "maxScore": 100,
+    "dueDate": "2024-01-20",
+    "category": "homework"
+  },
+  {
+    "Id": 6,
+    "classId": 3,
+    "name": "Photosynthesis Test",
+    "maxScore": 100,
+    "dueDate": "2024-01-28",
+    "category": "test"
+  },
+  {
+    "Id": 7,
+    "classId": 4,
+    "name": "WWII Research Paper",
+    "maxScore": 200,
+    "dueDate": "2024-02-01",
+    "category": "project"
+  },
+  {
+    "Id": 8,
+    "classId": 5,
+    "name": "Chemical Reactions Quiz",
+    "maxScore": 50,
+    "dueDate": "2024-01-17",
+    "category": "quiz"
+  }
+]
