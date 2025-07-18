@@ -124,15 +124,21 @@ const Students = () => {
     }
   };
 
-  const handleSubmitStudent = async (formData) => {
+const handleSubmitStudent = async (formData) => {
     try {
       if (selectedStudent) {
         const updatedStudent = await studentService.update(selectedStudent.Id, formData);
-        setStudents(students.map(s => s.Id === selectedStudent.Id ? updatedStudent : s));
+        const updatedStudents = students.map(s => s.Id === selectedStudent.Id ? updatedStudent : s);
+        setStudents(updatedStudents);
+        // Force immediate filtering to ensure UI updates
+        filterAndSortStudents();
         toast.success("Student updated successfully");
       } else {
         const newStudent = await studentService.create(formData);
-        setStudents([...students, newStudent]);
+        const newStudents = [...students, newStudent];
+        setStudents(newStudents);
+        // Force immediate filtering to ensure new student is visible
+        filterAndSortStudents();
         toast.success("Student added successfully");
       }
       setShowModal(false);
