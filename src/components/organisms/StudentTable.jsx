@@ -61,10 +61,10 @@ const StudentTable = ({ students, sortBy, sortOrder, onSort, onEdit, onDelete })
                       </div>
                     </div>
                   </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {student.email}
 </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {student.email_c}
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {student.grade_c}
                 </td>
