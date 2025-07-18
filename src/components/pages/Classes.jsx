@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import Button from "@/components/atoms/Button";
-import Card from "@/components/atoms/Card";
-import Badge from "@/components/atoms/Badge";
+import ApperIcon from "@/components/ApperIcon";
+import Empty from "@/components/ui/Empty";
+import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
+import Students from "@/components/pages/Students";
 import Modal from "@/components/molecules/Modal";
 import FormField from "@/components/molecules/FormField";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import Empty from "@/components/ui/Empty";
-import ApperIcon from "@/components/ApperIcon";
+import Card from "@/components/atoms/Card";
+import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
 import { classService } from "@/services/api/classService";
 import { studentService } from "@/services/api/studentService";
 
@@ -62,14 +63,14 @@ const Classes = () => {
     setShowModal(true);
   };
 
-  const handleEditClass = (classData) => {
+const handleEditClass = (classData) => {
     setSelectedClass(classData);
     setFormData({
-      name: classData.name,
-      subject: classData.subject,
-      period: classData.period,
-      room: classData.room,
-      studentIds: classData.studentIds || [],
+      name: classData.Name,
+      subject: classData.subject_c,
+      period: classData.period_c,
+      room: classData.room_c,
+      studentIds: classData.student_ids_c ? classData.student_ids_c.split(',').map(id => parseInt(id)) : [],
     });
     setShowModal(true);
   };
@@ -119,7 +120,8 @@ const Classes = () => {
     }));
   };
 
-  const getEnrolledStudents = (studentIds) => {
+const getEnrolledStudents = (studentIds) => {
+    if (!studentIds || !Array.isArray(studentIds)) return [];
     return students.filter(student => studentIds.includes(student.Id));
   };
 
@@ -160,19 +162,19 @@ const Classes = () => {
             >
               <Card className="h-full">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
+<div className="flex-1">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      {classData.name}
+                      {classData.Name}
                     </h3>
                     <div className="space-y-1">
                       <p className="text-sm text-gray-600">
-                        Subject: {classData.subject}
+                        Subject: {classData.subject_c}
                       </p>
                       <p className="text-sm text-gray-600">
-                        Period: {classData.period}
+                        Period: {classData.period_c}
                       </p>
                       <p className="text-sm text-gray-600">
-                        Room: {classData.room}
+                        Room: {classData.room_c}
                       </p>
                     </div>
                   </div>
@@ -198,11 +200,32 @@ const Classes = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-gray-700">
                       Enrolled Students
-                    </span>
-                    <Badge variant="primary">
-                      {classData.studentIds?.length || 0}
+<Badge variant="primary">
+                      {classData.student_ids_c ? classData.student_ids_c.split(',').length : 0}
                     </Badge>
                   </div>
+
+                  {classData.student_ids_c && (
+                    <div className="space-y-2">
+                      {getEnrolledStudents(classData.student_ids_c ? classData.student_ids_c.split(',').map(id => parseInt(id)) : []).slice(0, 3).map((student) => (
+                        <div key={student.Id} className="flex items-center space-x-2">
+                          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                            <span className="text-white text-xs font-medium">
+                              {student.first_name_c?.[0]}{student.last_name_c?.[0]}
+                            </span>
+                          </div>
+                          <span className="text-sm text-gray-600">
+                            {student.first_name_c} {student.last_name_c}
+                          </span>
+                        </div>
+                      ))}
+                      {classData.student_ids_c && classData.student_ids_c.split(',').length > 3 && (
+                        <p className="text-sm text-gray-500">
+                          +{classData.student_ids_c.split(',').length - 3} more students
+                        </p>
+                      )}
+                    </div>
+                  )}
 
                   {classData.studentIds?.length > 0 && (
                     <div className="space-y-2">
@@ -283,14 +306,14 @@ const Classes = () => {
                       onChange={() => handleStudentToggle(student.Id)}
                       className="rounded border-gray-300 text-primary focus:ring-primary"
                     />
-                    <div className="flex items-center space-x-2">
+<div className="flex items-center space-x-2">
                       <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                         <span className="text-white text-xs font-medium">
-                          {student.firstName[0]}{student.lastName[0]}
+                          {student.first_name_c?.[0]}{student.last_name_c?.[0]}
                         </span>
                       </div>
                       <span className="text-sm text-gray-900">
-                        {student.firstName} {student.lastName}
+                        {student.first_name_c} {student.last_name_c}
                       </span>
                     </div>
                   </label>

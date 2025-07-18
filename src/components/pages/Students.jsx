@@ -44,42 +44,42 @@ const Students = () => {
     }
   };
 
-  const filterAndSortStudents = () => {
+const filterAndSortStudents = () => {
     let filtered = students.filter(student =>
-      `${student.firstName} ${student.lastName}`
+      `${student.first_name_c} ${student.last_name_c}`
         .toLowerCase()
         .includes(searchTerm.toLowerCase()) ||
-      student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.grade.toLowerCase().includes(searchTerm.toLowerCase())
+      student.email_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      student.grade_c?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     filtered.sort((a, b) => {
       let aValue, bValue;
       
-      switch (sortBy) {
+switch (sortBy) {
         case "name":
-          aValue = `${a.firstName} ${a.lastName}`.toLowerCase();
-          bValue = `${b.firstName} ${b.lastName}`.toLowerCase();
+          aValue = `${a.first_name_c} ${a.last_name_c}`.toLowerCase();
+          bValue = `${b.first_name_c} ${b.last_name_c}`.toLowerCase();
           break;
         case "email":
-          aValue = a.email.toLowerCase();
-          bValue = b.email.toLowerCase();
+          aValue = a.email_c?.toLowerCase() || "";
+          bValue = b.email_c?.toLowerCase() || "";
           break;
         case "grade":
-          aValue = a.grade;
-          bValue = b.grade;
+          aValue = a.grade_c || "";
+          bValue = b.grade_c || "";
           break;
         case "enrollmentDate":
-          aValue = new Date(a.enrollmentDate);
-          bValue = new Date(b.enrollmentDate);
+          aValue = new Date(a.enrollment_date_c);
+          bValue = new Date(b.enrollment_date_c);
           break;
         case "status":
-          aValue = a.status;
-          bValue = b.status;
+          aValue = a.status_c || "";
+          bValue = b.status_c || "";
           break;
         default:
-          aValue = a[sortBy];
-          bValue = b[sortBy];
+          aValue = a[sortBy] || "";
+          bValue = b[sortBy] || "";
       }
 
       if (sortOrder === "asc") {
@@ -128,18 +128,18 @@ const handleSubmitStudent = async (formData) => {
     try {
       if (selectedStudent) {
         const updatedStudent = await studentService.update(selectedStudent.Id, formData);
-        const updatedStudents = students.map(s => s.Id === selectedStudent.Id ? updatedStudent : s);
-        setStudents(updatedStudents);
-        // Force immediate filtering to ensure UI updates
-        filterAndSortStudents();
-        toast.success("Student updated successfully");
+        if (updatedStudent) {
+          const updatedStudents = students.map(s => s.Id === selectedStudent.Id ? updatedStudent : s);
+          setStudents(updatedStudents);
+          toast.success("Student updated successfully");
+        }
       } else {
         const newStudent = await studentService.create(formData);
-        const newStudents = [...students, newStudent];
-        setStudents(newStudents);
-        // Force immediate filtering to ensure new student is visible
-        filterAndSortStudents();
-        toast.success("Student added successfully");
+        if (newStudent) {
+          const newStudents = [...students, newStudent];
+          setStudents(newStudents);
+          toast.success("Student added successfully");
+        }
       }
       setShowModal(false);
     } catch (err) {

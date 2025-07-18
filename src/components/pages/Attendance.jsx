@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import Select from "@/components/atoms/Select";
-import AttendanceCalendar from "@/components/organisms/AttendanceCalendar";
-import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
+import AttendanceCalendar from "@/components/organisms/AttendanceCalendar";
+import Select from "@/components/atoms/Select";
+import { attendanceService } from "@/services/api/attendanceService";
 import { classService } from "@/services/api/classService";
 import { studentService } from "@/services/api/studentService";
-import { attendanceService } from "@/services/api/attendanceService";
-
 const Attendance = () => {
   const [classes, setClasses] = useState([]);
   const [students, setStudents] = useState([]);
@@ -24,17 +23,17 @@ const Attendance = () => {
     loadData();
   }, []);
 
-  useEffect(() => {
+useEffect(() => {
     if (selectedClass) {
+      const studentIds = selectedClass.student_ids_c ? selectedClass.student_ids_c.split(',').map(id => parseInt(id)) : [];
       const classStudents = students.filter(s => 
-        selectedClass.studentIds?.includes(s.Id)
+        studentIds.includes(s.Id)
       );
       setFilteredStudents(classStudents);
     } else {
       setFilteredStudents([]);
     }
   }, [selectedClass, students]);
-
   const loadData = async () => {
     try {
       setLoading(true);
@@ -61,19 +60,19 @@ const Attendance = () => {
     setIsEditing(false);
   };
 
-  const handleMarkAttendance = async (studentId, date, status) => {
+const handleMarkAttendance = async (studentId, date, status) => {
     try {
       const attendanceRecord = {
-        studentId,
-        classId: selectedClass.Id,
-        date: date.toISOString().split("T")[0],
-        status,
+        student_id_c: studentId,
+        class_id_c: selectedClass.Id,
+        date_c: date.toISOString().split("T")[0],
+        status_c: status,
       };
 
       const existingIndex = attendance.findIndex(a => 
-        a.studentId === studentId && 
-        a.classId === selectedClass.Id && 
-        a.date === attendanceRecord.date
+        a.student_id_c === studentId && 
+        a.class_id_c === selectedClass.Id && 
+        a.date_c === attendanceRecord.date_c
       );
 
       if (existingIndex >= 0) {
@@ -117,8 +116,8 @@ const Attendance = () => {
             >
               <option value="">Choose a class...</option>
               {classes.map((classData) => (
-                <option key={classData.Id} value={classData.Id}>
-                  {classData.name} - {classData.subject}
+<option key={classData.Id} value={classData.Id}>
+                  {classData.Name} - {classData.subject_c}
                 </option>
               ))}
             </Select>

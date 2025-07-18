@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import Button from "@/components/atoms/Button";
-import Select from "@/components/atoms/Select";
+import ApperIcon from "@/components/ApperIcon";
+import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
 import GradeGrid from "@/components/organisms/GradeGrid";
 import Modal from "@/components/molecules/Modal";
 import FormField from "@/components/molecules/FormField";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import ApperIcon from "@/components/ApperIcon";
+import Select from "@/components/atoms/Select";
+import Button from "@/components/atoms/Button";
+import { gradeService } from "@/services/api/gradeService";
+import { assignmentService } from "@/services/api/assignmentService";
 import { classService } from "@/services/api/classService";
 import { studentService } from "@/services/api/studentService";
-import { assignmentService } from "@/services/api/assignmentService";
-import { gradeService } from "@/services/api/gradeService";
-
 const Grades = () => {
   const [classes, setClasses] = useState([]);
   const [students, setStudents] = useState([]);
@@ -37,13 +36,14 @@ const Grades = () => {
     loadData();
   }, []);
 
-  useEffect(() => {
+useEffect(() => {
     if (selectedClass) {
+      const studentIds = selectedClass.student_ids_c ? selectedClass.student_ids_c.split(',').map(id => parseInt(id)) : [];
       const classStudents = students.filter(s => 
-        selectedClass.studentIds?.includes(s.Id)
+        studentIds.includes(s.Id)
       );
       const classAssignments = assignments.filter(a => 
-        a.classId === selectedClass.Id
+        a.class_id_c === selectedClass.Id
       );
       setFilteredStudents(classStudents);
       setFilteredAssignments(classAssignments);
@@ -52,7 +52,6 @@ const Grades = () => {
       setFilteredAssignments([]);
     }
   }, [selectedClass, students, assignments]);
-
   const loadData = async () => {
     try {
       setLoading(true);
@@ -81,32 +80,32 @@ const Grades = () => {
     setIsEditing(false);
   };
 
-  const handleGradeChange = (studentId, assignmentId, score) => {
+const handleGradeChange = (studentId, assignmentId, score) => {
     const numScore = parseFloat(score) || 0;
     const assignment = assignments.find(a => a.Id === assignmentId);
     
-    if (assignment && numScore > assignment.maxScore) {
-      toast.error(`Score cannot exceed ${assignment.maxScore} points`);
+    if (assignment && numScore > assignment.max_score_c) {
+      toast.error(`Score cannot exceed ${assignment.max_score_c} points`);
       return;
     }
 
     const existingGradeIndex = grades.findIndex(g => 
-      g.studentId === studentId && g.assignmentId === assignmentId
+      g.student_id_c === studentId && g.assignment_id_c === assignmentId
     );
 
     if (existingGradeIndex >= 0) {
       const updatedGrades = [...grades];
       updatedGrades[existingGradeIndex] = {
         ...updatedGrades[existingGradeIndex],
-        score: numScore,
+        score_c: numScore,
       };
       setGrades(updatedGrades);
     } else {
       const newGrade = {
-        studentId,
-        assignmentId,
-        score: numScore,
-        submittedDate: new Date().toISOString(),
+        student_id_c: studentId,
+        assignment_id_c: assignmentId,
+        score_c: numScore,
+        submitted_date_c: new Date().toISOString().split("T")[0],
       };
       setGrades([...grades, newGrade]);
     }
@@ -123,13 +122,13 @@ const Grades = () => {
     }
   };
 
-  const handleAddAssignment = async (e) => {
+const handleAddAssignment = async (e) => {
     e.preventDefault();
     try {
       const newAssignment = await assignmentService.create({
         ...assignmentForm,
-        classId: selectedClass.Id,
-        maxScore: parseFloat(assignmentForm.maxScore),
+        class_id_c: selectedClass.Id,
+        max_score_c: parseFloat(assignmentForm.maxScore),
       });
       setAssignments([...assignments, newAssignment]);
       setShowAssignmentModal(false);
@@ -180,9 +179,9 @@ const Grades = () => {
               onChange={(e) => handleClassSelect(e.target.value)}
             >
               <option value="">Choose a class...</option>
-              {classes.map((classData) => (
+{classes.map((classData) => (
                 <option key={classData.Id} value={classData.Id}>
-                  {classData.name} - {classData.subject}
+                  {classData.Name} - {classData.subject_c}
                 </option>
               ))}
             </Select>

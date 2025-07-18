@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { format, isToday } from "date-fns";
+import ApperIcon from "@/components/ApperIcon";
+import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
 import StatCard from "@/components/molecules/StatCard";
 import Card from "@/components/atoms/Card";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import ApperIcon from "@/components/ApperIcon";
-import { studentService } from "@/services/api/studentService";
-import { classService } from "@/services/api/classService";
-import { attendanceService } from "@/services/api/attendanceService";
 import { gradeService } from "@/services/api/gradeService";
-import { format, isToday } from "date-fns";
-
+import { attendanceService } from "@/services/api/attendanceService";
+import { classService } from "@/services/api/classService";
+import { studentService } from "@/services/api/studentService";
+import classesData from "@/services/mockData/classes.json";
+import assignmentsData from "@/services/mockData/assignments.json";
+import gradesData from "@/services/mockData/grades.json";
+import studentsData from "@/services/mockData/students.json";
+import attendanceData from "@/services/mockData/attendance.json";
 const Dashboard = () => {
   const [stats, setStats] = useState({
     totalStudents: 0,
@@ -44,16 +48,16 @@ const Dashboard = () => {
       const totalClasses = classes.length;
       
       // Calculate average grade
-      const avgGrade = grades.length > 0 
-        ? Math.round(grades.reduce((sum, grade) => sum + grade.score, 0) / grades.length)
+const avgGrade = grades.length > 0 
+        ? Math.round(grades.reduce((sum, grade) => sum + (grade.score_c || 0), 0) / grades.length)
         : 0;
 
       // Calculate attendance rate
-      const todayAttendanceRecords = attendance.filter(record => 
-        isToday(new Date(record.date))
+const todayAttendanceRecords = attendance.filter(record => 
+        isToday(new Date(record.date_c))
       );
-      const presentToday = todayAttendanceRecords.filter(record => 
-        record.status === "present"
+const presentToday = todayAttendanceRecords.filter(record => 
+        record.status_c === "present"
       ).length;
       const attendanceRate = todayAttendanceRecords.length > 0
         ? Math.round((presentToday / todayAttendanceRecords.length) * 100)
@@ -67,15 +71,15 @@ const Dashboard = () => {
       });
 
       // Recent activity
-      const recentGrades = grades
-        .sort((a, b) => new Date(b.submittedDate) - new Date(a.submittedDate))
+const recentGrades = grades
+        .sort((a, b) => new Date(b.submitted_date_c) - new Date(a.submitted_date_c))
         .slice(0, 5)
         .map(grade => {
-          const student = students.find(s => s.Id === grade.studentId);
+          const student = students.find(s => s.Id === grade.student_id_c);
           return {
             type: "grade",
-            message: `${student?.firstName} ${student?.lastName} received a grade`,
-            time: grade.submittedDate,
+            message: `${student?.first_name_c} ${student?.last_name_c} received a grade`,
+            time: grade.submitted_date_c,
             icon: "FileText",
           };
         });
@@ -215,29 +219,29 @@ const Dashboard = () => {
             <div className="space-y-4">
               {todayAttendance.length > 0 ? (
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
+<div className="text-center p-4 bg-green-50 rounded-lg">
                     <div className="text-2xl font-bold text-green-600">
-                      {todayAttendance.filter(a => a.status === "present").length}
+                      {todayAttendance.filter(a => a.status_c === "present").length}
                     </div>
-                    <div className="text-sm text-green-600">Present</div>
+                    <div className="text-sm text-green-700">Present</div>
                   </div>
-                  <div className="text-center p-4 bg-red-50 rounded-lg">
+<div className="text-center p-4 bg-red-50 rounded-lg">
                     <div className="text-2xl font-bold text-red-600">
-                      {todayAttendance.filter(a => a.status === "absent").length}
+                      {todayAttendance.filter(a => a.status_c === "absent").length}
                     </div>
-                    <div className="text-sm text-red-600">Absent</div>
+                    <div className="text-sm text-red-700">Absent</div>
                   </div>
-                  <div className="text-center p-4 bg-yellow-50 rounded-lg">
+<div className="text-center p-4 bg-yellow-50 rounded-lg">
                     <div className="text-2xl font-bold text-yellow-600">
-                      {todayAttendance.filter(a => a.status === "late").length}
+                      {todayAttendance.filter(a => a.status_c === "late").length}
                     </div>
-                    <div className="text-sm text-yellow-600">Late</div>
+                    <div className="text-sm text-yellow-700">Late</div>
                   </div>
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+<div className="text-center p-4 bg-blue-50 rounded-lg">
                     <div className="text-2xl font-bold text-blue-600">
-                      {todayAttendance.filter(a => a.status === "excused").length}
+                      {todayAttendance.filter(a => a.status_c === "excused").length}
                     </div>
-                    <div className="text-sm text-blue-600">Excused</div>
+                    <div className="text-sm text-blue-700">Excused</div>
                   </div>
                 </div>
               ) : (
