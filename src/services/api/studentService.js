@@ -19,11 +19,11 @@ export const studentService = {
     return { ...student };
   },
 
-  async create(studentData) {
+async create(studentData) {
     await delay(400);
     const newStudent = {
       ...studentData,
-      Id: Math.max(...students.map(s => s.Id)) + 1,
+      Id: Math.max(...students.map(s => s.Id), 0) + 1,
     };
     students.push(newStudent);
     return { ...newStudent };
