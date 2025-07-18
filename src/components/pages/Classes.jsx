@@ -198,13 +198,13 @@ const getEnrolledStudents = (studentIds) => {
 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">
+<span className="text-sm font-medium text-gray-700">
                       Enrolled Students
-<Badge variant="primary">
+                    </span>
+                    <Badge variant="primary">
                       {classData.student_ids_c ? classData.student_ids_c.split(',').length : 0}
                     </Badge>
                   </div>
-
                   {classData.student_ids_c && (
                     <div className="space-y-2">
                       {getEnrolledStudents(classData.student_ids_c ? classData.student_ids_c.split(',').map(id => parseInt(id)) : []).slice(0, 3).map((student) => (
