@@ -5,13 +5,13 @@ import { format } from "date-fns";
 
 const StudentForm = ({ student, onSubmit, onCancel }) => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    grade: "",
-    dateOfBirth: "",
-    enrollmentDate: "",
-    status: "active",
+    first_name_c: "",
+    last_name_c: "",
+    email_c: "",
+    grade_c: "",
+    date_of_birth_c: "",
+    enrollment_date_c: "",
+    status_c: "active",
   });
 
   const [errors, setErrors] = useState({});
@@ -19,29 +19,29 @@ const StudentForm = ({ student, onSubmit, onCancel }) => {
   useEffect(() => {
     if (student) {
       setFormData({
-        firstName: student.firstName || "",
-        lastName: student.lastName || "",
-        email: student.email || "",
-        grade: student.grade || "",
-        dateOfBirth: student.dateOfBirth ? format(new Date(student.dateOfBirth), "yyyy-MM-dd") : "",
-        enrollmentDate: student.enrollmentDate ? format(new Date(student.enrollmentDate), "yyyy-MM-dd") : "",
-        status: student.status || "active",
+        first_name_c: student.first_name_c || "",
+        last_name_c: student.last_name_c || "",
+        email_c: student.email_c || "",
+        grade_c: student.grade_c || "",
+        date_of_birth_c: student.date_of_birth_c ? format(new Date(student.date_of_birth_c), "yyyy-MM-dd") : "",
+        enrollment_date_c: student.enrollment_date_c ? format(new Date(student.enrollment_date_c), "yyyy-MM-dd") : "",
+        status_c: student.status_c || "active",
       });
     }
   }, [student]);
 
-  const validateForm = () => {
+const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
-    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    if (!formData.grade.trim()) newErrors.grade = "Grade is required";
-    if (!formData.dateOfBirth) newErrors.dateOfBirth = "Date of birth is required";
-    if (!formData.enrollmentDate) newErrors.enrollmentDate = "Enrollment date is required";
+    if (!formData.first_name_c.trim()) newErrors.first_name_c = "First name is required";
+    if (!formData.last_name_c.trim()) newErrors.last_name_c = "Last name is required";
+    if (!formData.email_c.trim()) newErrors.email_c = "Email is required";
+    if (!formData.grade_c.trim()) newErrors.grade_c = "Grade is required";
+    if (!formData.date_of_birth_c) newErrors.date_of_birth_c = "Date of birth is required";
+    if (!formData.enrollment_date_c) newErrors.enrollment_date_c = "Enrollment date is required";
 
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+    if (formData.email_c && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email_c)) {
+      newErrors.email_c = "Please enter a valid email address";
     }
 
     setErrors(newErrors);
@@ -79,76 +79,76 @@ const StudentForm = ({ student, onSubmit, onCancel }) => {
     { value: "12", label: "12th Grade" },
   ];
 
-  const statusOptions = [
+const statusOptions = [
     { value: "active", label: "Active" },
     { value: "inactive", label: "Inactive" },
+    { value: "pending", label: "Pending" },
   ];
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField
+<FormField
           label="First Name"
           required
-          value={formData.firstName}
-          onChange={(e) => handleChange("firstName", e.target.value)}
-          error={errors.firstName}
+          value={formData.first_name_c}
+          onChange={(e) => handleChange("first_name_c", e.target.value)}
+          error={errors.first_name_c}
         />
         <FormField
           label="Last Name"
           required
-          value={formData.lastName}
-          onChange={(e) => handleChange("lastName", e.target.value)}
-          error={errors.lastName}
+          value={formData.last_name_c}
+          onChange={(e) => handleChange("last_name_c", e.target.value)}
+          error={errors.last_name_c}
         />
       </div>
 
-      <FormField
+<FormField
         label="Email"
         type="email"
         required
-        value={formData.email}
-        onChange={(e) => handleChange("email", e.target.value)}
-        error={errors.email}
+        value={formData.email_c}
+        onChange={(e) => handleChange("email_c", e.target.value)}
+        error={errors.email_c}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField
+<FormField
           label="Grade"
           type="select"
           required
-          value={formData.grade}
-          onChange={(e) => handleChange("grade", e.target.value)}
+          value={formData.grade_c}
+          onChange={(e) => handleChange("grade_c", e.target.value)}
           options={gradeOptions}
-          error={errors.grade}
+          error={errors.grade_c}
         />
         <FormField
           label="Status"
           type="select"
           required
-          value={formData.status}
-          onChange={(e) => handleChange("status", e.target.value)}
+          value={formData.status_c}
+          onChange={(e) => handleChange("status_c", e.target.value)}
           options={statusOptions}
-          error={errors.status}
+          error={errors.status_c}
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField
+<FormField
           label="Date of Birth"
           type="date"
           required
-          value={formData.dateOfBirth}
-          onChange={(e) => handleChange("dateOfBirth", e.target.value)}
-          error={errors.dateOfBirth}
+          value={formData.date_of_birth_c}
+          onChange={(e) => handleChange("date_of_birth_c", e.target.value)}
+          error={errors.date_of_birth_c}
         />
         <FormField
           label="Enrollment Date"
           type="date"
           required
-          value={formData.enrollmentDate}
-          onChange={(e) => handleChange("enrollmentDate", e.target.value)}
-          error={errors.enrollmentDate}
+          value={formData.enrollment_date_c}
+          onChange={(e) => handleChange("enrollment_date_c", e.target.value)}
+          error={errors.enrollment_date_c}
         />
       </div>
 

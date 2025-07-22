@@ -98,12 +98,12 @@ export const studentService = {
     }
   },
 
-  async create(studentData) {
+async create(studentData) {
     try {
       const tableName = 'student_c';
       
       const updateableData = {
-        Name: studentData.Name || `${studentData.first_name_c} ${studentData.last_name_c}`,
+        Name: `${studentData.first_name_c} ${studentData.last_name_c}`,
         first_name_c: studentData.first_name_c,
         last_name_c: studentData.last_name_c,
         email_c: studentData.email_c,
@@ -159,13 +159,13 @@ export const studentService = {
     }
   },
 
-  async update(id, studentData) {
+async update(id, studentData) {
     try {
       const tableName = 'student_c';
       
       const updateableData = {
         Id: id,
-        Name: studentData.Name || `${studentData.first_name_c} ${studentData.last_name_c}`,
+        Name: `${studentData.first_name_c} ${studentData.last_name_c}`,
         first_name_c: studentData.first_name_c,
         last_name_c: studentData.last_name_c,
         email_c: studentData.email_c,
