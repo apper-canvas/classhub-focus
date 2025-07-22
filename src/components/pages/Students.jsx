@@ -46,7 +46,7 @@ const Students = () => {
 
 const filterAndSortStudents = () => {
     let filtered = students.filter(student =>
-      `${student.first_name_c} ${student.last_name_c}`
+      `${student.first_name_c || ''} ${student.last_name_c || ''}`
         .toLowerCase()
         .includes(searchTerm.toLowerCase()) ||
       student.email_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -56,10 +56,10 @@ const filterAndSortStudents = () => {
     filtered.sort((a, b) => {
       let aValue, bValue;
       
-switch (sortBy) {
+      switch (sortBy) {
         case "name":
-          aValue = `${a.first_name_c} ${a.last_name_c}`.toLowerCase();
-          bValue = `${b.first_name_c} ${b.last_name_c}`.toLowerCase();
+          aValue = `${a.first_name_c || ''} ${a.last_name_c || ''}`.toLowerCase();
+          bValue = `${b.first_name_c || ''} ${b.last_name_c || ''}`.toLowerCase();
           break;
         case "email":
           aValue = a.email_c?.toLowerCase() || "";
@@ -70,8 +70,8 @@ switch (sortBy) {
           bValue = b.grade_c || "";
           break;
         case "enrollmentDate":
-          aValue = new Date(a.enrollment_date_c);
-          bValue = new Date(b.enrollment_date_c);
+          aValue = new Date(a.enrollment_date_c || 0);
+          bValue = new Date(b.enrollment_date_c || 0);
           break;
         case "status":
           aValue = a.status_c || "";
